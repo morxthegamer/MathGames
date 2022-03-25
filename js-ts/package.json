@@ -1,0 +1,14 @@
+{
+  "name": "js-ts",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "installts": "npm i typescript",
+    "start": "npx tsc items.ts main.ts --target es6 && node main"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
