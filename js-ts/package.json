@@ -5,7 +5,7 @@
   "type": "module",
   "main": "main.js",
   "scripts": {
-    "installts": "npm i typescript",
+    "installts": "npm i typescript ts-node",
     "start": "npx tsc items.ts main.ts --target es6 && node main"
   },
   "keywords": [],

@@ -48,9 +48,9 @@ export class MathGames {
 
   save_iq() {
     fs.readFile("score.yaml", { encoding: "UTF-8" }, (e: any, d: any) => {
-      let iq = String(d).slice(4, String(d).length);
+      let iq = d.toString().slice(4, String(d).length);
       fs.readFile("saved.yaml", { encoding: "UTF-8" }, (e: any, d: any) => {
-        let i = String(d).slice(4, String(d).length);
+        let i = d.toString().slice(4, String(d).length);
         fs.writeFile("saved.yaml", `IQ: ${iq + i}`, (e: any, d: any) => {
           console.log("IQ saved successfully!");
           fs.writeFile("score.yaml", `IQ: 0`);
@@ -72,7 +72,7 @@ export class MathGames {
     let msg1 = "Your Estimated IQ is lower than your actual IQ.";
     let msg2 = "Your Estimated IQ is higher than your actual IQ.";
     fs.readFile("saved.yaml", { encoding: "utf-8" }, (e: any, d: any) => {
-      let iq = parseInt(String(d).slice(4, String(d).length));
+      let iq = parseInt(d.toString().slice(4, String(d).length));
       if (iq < this.est_iq) return msg1;
       else return msg2;
     });
