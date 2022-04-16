@@ -1,1 +1,1 @@
-import main
+while True: print(eval(input("Enter a statement:\n> ")))
