@@ -18,7 +18,8 @@ class GUI:
     if (sys.argv):
       for arg in sys.argv:
         self.setting(arg)
-    
+
+  def setup(self): pass
 
   def login(self):
     email = input("Please enter your email: ")
