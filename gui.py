@@ -13,11 +13,20 @@ class GUI:
     first, last = int(first), int(last)
     return operator, first, last
 
-  def start(self):
-    print("Welcome to The Official Math Games Terminal App!")
-    if (sys.argv):
-      for arg in sys.argv:
-        self.setting(arg)
+  def setting(self, argument):
+    if argument == "-s":
+        self.signup()
+
+    if argument == "-p":
+      difficulty = self.login()
+      op, start, end = self.getInfo()
+      self.game.playTheGame(op, start, end, difficulty)
+
+    if argument == "-d":
+      self.deleteAccount()
+
+    if argument == "m":
+      self.changeDifficulty()
 
   def setup(self):
     while (True):
@@ -28,6 +37,10 @@ class GUI:
       break
 
     return difficulty
+
+  def changeDifficulty(self):
+    current_mode = self.login()
+    print(f"Your current difficulty is: {mode}.")
 
   def login(self):
     username = input("Please enter your username: ")
@@ -81,14 +94,8 @@ class GUI:
       os.remove(f"DataBase/users/user[{username}].yaml")
       print(f"Successfully deleted your account! With reason:\n{reason}.")
 
-  def setting(self, argument):
-    if argument == "-s":
-        self.signup()
-
-    if argument == "-p":
-      difficulty = self.login()
-      op, start, end = self.getInfo()
-      self.game.playTheGame(op, start, end, difficulty)
-
-    if argument == "-d":
-      self.deleteAccount()
+  def start(self):
+    print("Welcome to The Official Math Games Terminal App!")
+    if (sys.argv):
+      for arg in sys.argv:
+        self.setting(arg)
