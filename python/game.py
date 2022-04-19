@@ -59,7 +59,7 @@ class MathGames:
       iq = int(l.read()[4])
     return msg1 if iq < self.est_iq else msg2
 
-  def playTheGame(self, operator, sr: int, er: int):
+  def playTheGame(self, operator, sr, er, difficulty):
     def give_iq(op):
       if (op == '+'):
         self.iq += 5
@@ -78,11 +78,39 @@ class MathGames:
 
       if (op == '//'):
         self.iq += 18
+
+    def check_difficulty(difficulty, sr, er):
+      if (difficulty == "EASY"):
+        if (sr > 10 or er > 20):
+          print("Cannot go above 1 to 20 in EASY mode.")
+          exit(1)
+
+      if (difficulty == "MEDIUM"):
+        if (sr < 10 or sr > 40 and er < 20 or er > 80):
+          print("Cannot go below 10 to 80 in MEDIUM mode.")
+          exit(1)
+
+      if (difficulty == "HARD"):
+        if (sr < 40 or sr > 100 and er < 80 or er > 160):
+          print("Cannot go below 40 to 160 in HARD mode.")
+          exit(1)
+
+      if (difficulty == "HARDER"):
+        if (sr < 100 or sr > 150 and er < 160 or er > 280):
+          print("Cannot go below 100 to 280 in HARDER mode.")
+          exit(1)
+
+      if (difficulty == "EXTREME"):
+        if (sr < 200 or er < 320):
+          print("Cannot go below 200 to 320 in EXTREME mode.")
+          exit(1)
       
     while True:
       num1 = random.randint(sr, er)
       num2 = random.randint(sr, er)
       result = eval(f"num1 {operator} num2")
+
+      if (difficulty): check_difficulty(difficulty, sr, er)
 
       play = int(input(f"\n{num1} {operator} {num2} = "))
 

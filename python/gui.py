@@ -4,7 +4,7 @@ import random, sys, yaml, os
 class GUI:
   def __init__(self):
     self.game = MathGames()
-    self.settings = []
+    self.difficulties = ["EASY", "MEDIUM", "HARD", "HARDER", "EXTREME"]
 
   def getInfo(self):
     operator = input("Time to play!\nChoose an operator:\n> ")
@@ -19,32 +19,47 @@ class GUI:
       for arg in sys.argv:
         self.setting(arg)
 
-  def setup(self): pass
+  def setup(self):
+    while (True):
+      difficulty = input(f"Please enter a difficulty:\n{self.difficulties}\n> ")
+      if (difficulty not in self.difficulties):
+        print("Invalid Choice.")
+        continue
+      break
+
+    return difficulty
 
   def login(self):
-    email = input("Please enter your email: ")
+    username = input("Please enter your username: ")
     password = input("Please enter you password: ")
-    getId = input("Please enter your id: ")
 
-    with open(f"DataBase/users/user{getId}.yaml", "r") as f:
+    with open(f"DataBase/users/user[{username}].yaml", "r") as f:
       info = f.readlines()
-      info[0] = info[0][7:-1]
-      info[1] = info[1][10:-1]
-        
-      if (info[0] != email):
-        print("Login failed. Wrong Email. Please try again.")
+      mode, name, pw = info[0][12:-1], info[3][10:-1], info[2][10:-1]
+      
+      if (name != username):
+        print("Login failed. Wrong Username. Please try again.")
+        exit(1)
 
-      if (info[1] != password):
+      if (pw != password):
         print("Login failed. Wrong Password. Please try again.")
+        exit(1)
 
-      if (info[0] == email and info[1] == password):
+      if (name == username and pw == password):
         print("Successfully logged in!")
+        
+      return mode
 
   def signup(self):
-    random_user_id = random.randrange(100, 999)
     username = input("Please enter your username: ")
     email = input("Please enter your email: ")
     password = input("Please enter your password: ")
+
+    for file in os.listdir("DataBase/users"):
+      filename = file[5:-6]
+      if (filename == username):
+        print("This username is already taken. Please try again.")
+        exit(1)
 
     user = {
       "Username": username,
@@ -52,28 +67,28 @@ class GUI:
       "Password": password
     }
 
-    with open(f"DataBase/users/user{random_user_id}.yaml", "w") as s:
+    user["Difficulty"] = self.setup()
+
+    with open(f"DataBase/users/user[{username}].yaml", "w") as s:
       s.write(yaml.dump(user))
-      print(f"Successfully signed up! Your ID is: {random_user_id}.")
+      print(f"Successfully signed up!\n\nYour email is: {email}.\nYour password is: {password}.")
 
   def deleteAccount(self):
     info = input("Are you sure you want to delete your account? (y/n)\n> ")
     if (info == "y"):
-      reason = input("Please tell us why you want to delete your account:\n>")
-      getId = input("Please enter your ID: ")
-      os.remove(f"DataBase/users/user{getId}.yaml")
+      reason = input("Please tell us why you want to delete your account:\n> ")
+      username = input("Please enter your username: ")
+      os.remove(f"DataBase/users/user[{username}].yaml")
       print(f"Successfully deleted your account! With reason:\n{reason}.")
 
   def setting(self, argument):
-    if argument == "-l":
-        self.login()
-    
     if argument == "-s":
         self.signup()
 
     if argument == "-p":
+      difficulty = self.login()
       op, start, end = self.getInfo()
-      self.game.playTheGame(op, start, end)
+      self.game.playTheGame(op, start, end, difficulty)
 
     if argument == "-d":
       self.deleteAccount()
