@@ -3,13 +3,22 @@ Welcome to the Official Math Games Terminal App!
 Play Addition, Subtraction, Multiplication, Exponentation, Divison & Floor Divison Games Endlessly!
 
 GAME MODES:
-EASY, MEDIUM, HARD, HARDER, EXTREME
+EASY, MEDIUM, HARD, HARDER, EXTREME.
 
 EASY GAME MODE:
 In the easy game mode, your starting range can be from 1-10 and your ending range can be from 10-20.
 
 MEDIUM GAME MODE:
-In the medium game mode, your starting range can be from 1-10 and your ending range can be from 10-20.
+In the medium game mode, your starting range can be from 10-40 and your ending range can be from 20-80.
+
+HARD GAME MODE:
+In the hard game mode, your starting range can be from 40-80 and your ending range can be from 80-160.
+
+HARDER GAME MODE:
+In the harder game mode, your starting range can be from 100-150 and your ending range can be from 160-280.
+
+EXTREME GAME MODE:
+In the extreme game mode, your starting range can be from 200 and up and your ending range can be from 320 and up.
 
 GAME RULES:
 1. 

@@ -8,7 +8,7 @@ class MathGames:
     self.wrongMessage2 = "You are incorrect. It's more than that. The answer is...{}"
     self.correctMessage = "You are correct! The answer is...{}"
 
-  def give_iq(op):
+  def give_iq(self, op):
     if (op == '+'):
       self.iq += 5
 
@@ -27,7 +27,7 @@ class MathGames:
     if (op == '//'):
       self.iq += 18
 
-  def check_difficulty(difficulty, sr, er):
+  def check_difficulty(self, difficulty, sr, er):
     if (difficulty == "EASY"):
       if (sr > 10 or er > 20):
         print("Cannot go above 1 to 20 in EASY mode.")
@@ -61,7 +61,7 @@ class MathGames:
 
       self.check_difficulty(difficulty, sr, er)
 
-      play = int(input(f"\n{num1} {operator} {num2} = "))
+      play = int(input(f"{num1} {operator} {num2} = "))
 
       if play == result:
         print(colored(self.correctMessage.format(result), 'green'))
