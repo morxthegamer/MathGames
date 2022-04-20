@@ -7,7 +7,7 @@ class MathGames:
     self.wrongMessage1 = "You are incorrect. It's less than that. The answer is...{}"
     self.wrongMessage2 = "You are incorrect. It's more than that. The answer is...{}"
     self.correctMessage = "You are correct! The answer is...{}"
-    self.game_message = "Math Games | Operator: {} | IQ: {} | Range: {}-{} | Mode: {}"
+    self.game_message = "Math Games | Operator: {} | IQ Earned: {} | Range: {}-{} | Mode: {}"
 
   def give_iq(self, op):
     if (op == '+'):
