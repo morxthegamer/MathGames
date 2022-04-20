@@ -1,32 +1,39 @@
 from game import MathGames
-import random, sys, yaml, os
+import random, sys, json, os
 
 class GUI:
   def __init__(self):
     self.game = MathGames()
     self.difficulties = ["EASY", "MEDIUM", "HARD", "HARDER", "EXTREME"]
 
-  def getInfo(self):
+  def introduction(self):
+    print("Please Login.")
+    info = self.login()
+    return (
+      f"""
+      Name: {intro["Username"]}
+      Age: {intro["Age"]}
+      Estimated-IQ: {intro["Estimated-IQ"]}
+      Let's see your IQ skills.
+      """
+    )
+
+  def check_iq(self):
+    with open("DataBase/saved.yaml" , "r") as g:
+      i_q = int(g.read()[4:])
+      return (
+        f"""
+        \nYour IQ Level is: {i_q}!
+        Congrats!
+        """
+      ) if (i_q) >= 100 else f"\nYour IQ Level is: {i_q}."
+
+  def request(self):
     operator = input("Time to play!\nChoose an operator:\n> ")
     game_range = input("Choose a range: ")
     first, last = game_range.split(" ")
     first, last = int(first), int(last)
     return operator, first, last
-
-  def setting(self, argument):
-    if argument == "-s":
-        self.signup()
-
-    if argument == "-p":
-      difficulty = self.login()
-      op, start, end = self.getInfo()
-      self.game.playTheGame(op, start, end, difficulty)
-
-    if argument == "-d":
-      self.deleteAccount()
-
-    if argument == "m":
-      self.changeDifficulty()
 
   def setup(self):
     while (True):
@@ -34,34 +41,44 @@ class GUI:
       if (difficulty not in self.difficulties):
         print("Invalid Choice.")
         continue
+      age = input("Please enter your age: ")
+      estimated_iq = input("How much IQ you think you got?\n> ")
       break
 
-    return difficulty
+    return difficulty, age, estimated_iq
 
   def changeDifficulty(self):
-    current_mode = self.login()
-    print(f"Your current difficulty is: {mode}.")
+    confirmation = input("Are you sure you want to change your difficulty? (y/n): ")
+    if (confirmation == "y"):
+      print("Please Login.")
+      info = self.login()
+
+      with open("DataBase/users/user[{}].json".format(info["Username"]), "w") as l:
+        print("Your current mode is: {}.".format(info["Difficulty"]))
+        new_difficulty = input("Enter a new difficulty: ")
+        info["Difficulty"] = new_difficulty
+        l.write(json.dumps(info))
+        print("Your new difficulty has been saved!")
 
   def login(self):
     username = input("Please enter your username: ")
     password = input("Please enter you password: ")
 
-    with open(f"DataBase/users/user[{username}].yaml", "r") as f:
-      info = f.readlines()
-      mode, name, pw = info[0][12:-1], info[3][10:-1], info[2][10:-1]
+    with open(f"DataBase/users/user[{username}].json", "r") as f:
+      information = json.loads(f.read())
       
-      if (name != username):
+      if (info["Username"] != username):
         print("Login failed. Wrong Username. Please try again.")
         exit(1)
 
-      if (pw != password):
+      if (info["Password"] != password):
         print("Login failed. Wrong Password. Please try again.")
         exit(1)
 
-      if (name == username and pw == password):
+      if (info["Username"] == username and info["Password"] == password):
         print("Successfully logged in!")
         
-      return mode
+      return information
 
   def signup(self):
     username = input("Please enter your username: ")
@@ -80,22 +97,31 @@ class GUI:
       "Password": password
     }
 
-    user["Difficulty"] = self.setup()
+    user["Difficulty"], user["Age"], user["Estimated-IQ"] = self.setup()
 
-    with open(f"DataBase/users/user[{username}].yaml", "w") as s:
-      s.write(yaml.dump(user))
-      print(f"Successfully signed up!\n\nYour email is: {email}.\nYour password is: {password}.")
+    with open(f"DataBase/users/user[{username}].json", "w") as s:
+      s.write(json.dumps(user))
+      print(f"\nSuccessfully signed up!\n\nYour email is: {email}.\nYour password is: {password}.")
 
   def deleteAccount(self):
     info = input("Are you sure you want to delete your account? (y/n)\n> ")
     if (info == "y"):
       reason = input("Please tell us why you want to delete your account:\n> ")
       username = input("Please enter your username: ")
-      os.remove(f"DataBase/users/user[{username}].yaml")
+      os.remove(f"DataBase/users/user[{username}].json")
       print(f"Successfully deleted your account! With reason:\n{reason}.")
 
-  def start(self):
-    print("Welcome to The Official Math Games Terminal App!")
-    if (sys.argv):
-      for arg in sys.argv:
-        self.setting(arg)
+  def menu(self, argument):
+    if argument == "-s":
+      self.signup()
+
+    if argument == "-p":
+      difficulty = self.login()["Difficulty"]
+      op, start, end = self.getInfo()
+      self.game.play(op, start, end, difficulty)
+
+    if argument == "-d":
+      self.deleteAccount()
+
+    if argument == "-m":
+      self.changeDifficulty()

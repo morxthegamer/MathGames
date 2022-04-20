@@ -1,8 +1,10 @@
-from gui import GUI
+from app import App
+from threading import Thread
 
 def main():
-  game = GUI()
+  game = App()
   game.start()
 
 if __name__ == "__main__":
-  main()
+  thread = Thread(target=main)
+  thread.start()
