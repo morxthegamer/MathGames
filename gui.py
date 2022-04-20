@@ -59,7 +59,7 @@ class GUI:
       print("Please Login.")
       info = self.login()
       print("Your current mode is: {}.".format(info["Difficulty"]))
-      new_difficulty = input("Enter a new difficulty:\n{self.difficulties}\n> ")
+      new_difficulty = input(f"Enter a new difficulty:\n{self.difficulties}\n> ")
       info["Difficulty"] = new_difficulty
       self.user_data.setDataJson("user[{}].json".format(info["Username"]), info)
       print("Your new difficulty has been saved!")

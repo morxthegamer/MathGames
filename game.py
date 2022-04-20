@@ -1,4 +1,4 @@
-import random
+import random, time, os
 from termcolor import colored
 
 class MathGames:
@@ -7,6 +7,7 @@ class MathGames:
     self.wrongMessage1 = "You are incorrect. It's less than that. The answer is...{}"
     self.wrongMessage2 = "You are incorrect. It's more than that. The answer is...{}"
     self.correctMessage = "You are correct! The answer is...{}"
+    self.game_message = "Math Games | Operator: {} | IQ: {} | Range: {}-{} | Mode: {}"
 
   def give_iq(self, op):
     if (op == '+'):
@@ -54,20 +55,22 @@ class MathGames:
         exit(1)
 
   def play(self, operator, sr, er, difficulty):
+    self.check_difficulty(difficulty, sr, er)
     while True:
+      print(self.game_message.format(operator, self.iq, sr, er, difficulty))
       num1 = random.randint(sr, er)
       num2 = random.randint(sr, er)
-      result = eval(f"num1 {operator} num2")
+      result = eval(f"\nnum1 {operator} num2")
 
-      self.check_difficulty(difficulty, sr, er)
-
-      play = int(input(f"{num1} {operator} {num2} = "))
+      play = int(input(f"\n{num1} {operator} {num2} = "))
 
       if play == result:
         print(colored(self.correctMessage.format(result), 'green'))
         with open("DataBase/score.yaml", "w") as f:
           self.give_iq(operator)
           f.write(f"IQ: {self.iq}")
+          time.sleep(2)
+          os.system("clear")
       elif result < play:
         print(colored(self.wrongMessage1.format(result), 'red'))
         break

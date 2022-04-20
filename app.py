@@ -15,6 +15,9 @@ class App:
       while True:
         try:
           execution = input("What would you like to do?\n> ")
+          if (execution == "login" or execution == "request" or execution == "setup" or execution == "save_game_iq" or execution == "start"):
+            print("Invaild option.")
+            continue
           exec(f"self.app.{execution}()")
         except Exception as e:
           print("Unable to execute request.")
