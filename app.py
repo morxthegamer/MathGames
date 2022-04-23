@@ -5,7 +5,7 @@ class App:
   def __init__(self):
     self.app = Frame()
     self.unsafe_methods = ["login", "request", "setup", "save_game_iq"]
-    self.methods = ["introduction", "check_iq", "change_difficulty", "sign_up", "delete_account", "clear", "start"]
+    self.methods = ["introduction", "checkIq", "changeDifficulty", "signUp", "deleteAccount", "gameInfo", "clear", "start"]
 
   def startup(self):
     print("What would you like to do?\n")

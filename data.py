@@ -20,3 +20,7 @@ class Data:
   def setData(self, file, data):
     with open(f"{self.folder}/{file}", "w") as j:
       j.write(data)
+
+  def getFileData(self, file):
+    with open(file, "r") as l:
+      return l.read()

@@ -128,25 +128,25 @@ class MathGames:
   def play(self, operator, sr, er, difficulty):
     self.check_difficulty(difficulty, sr, er)
     while True:
-        print(self.message.format(operator, self.iq, sr, er, difficulty))
-        num1, num2 = random.randint(sr, er), random.randint(sr, er)
-        result = eval(f"\nnum1 {operator} num2")
-        
-        play = int(input(f"\n{num1} {operator} {num2} = "))
+      print(self.message.format(operator, self.iq, sr, er, difficulty))
+      num1, num2 = random.randint(sr, er), random.randint(sr, er)
+      result = eval(f"\nnum1 {operator} num2")
+      
+      play = int(input(f"\n{num1} {operator} {num2} = "))
 
-        if play == result:
-            print(colored(self.correctMessage.format(result), 'green'))
-            with open("DataBase/score.yaml", "w") as f:
-                self.give_iq(operator)
-                f.write(f"IQ: {self.iq}")
-                time.sleep(2)
-                os.system("clear")
-        elif result < play:
-            print(colored(self.wrongMessage1.format(result), 'red'))
-            break
-        elif result > play:
-            print(colored(self.wrongMessage2.format(result), 'red'))
-            break
-        else:
-            print(f"You are incorrect. The answer is {result}.")
-            break
+      if play == result:
+        print(colored(self.correctMessage.format(result), 'green'))
+        with open("DataBase/score.yaml", "w") as f:
+          self.give_iq(operator, difficulty)
+          f.write(f"IQ: {self.iq}")
+          time.sleep(2)
+          os.system("clear")
+      elif result < play:
+        print(colored(self.wrongMessage1.format(result), 'red'))
+        break
+      elif result > play:
+        print(colored(self.wrongMessage2.format(result), 'red'))
+        break
+      else:
+        print(f"You are incorrect. The answer is {result}.")
+        break

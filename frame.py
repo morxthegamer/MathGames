@@ -1,5 +1,6 @@
 from game import MathGames
 from data import Data
+from IPython.display import display, Markdown
 import random, json, os, time
 
 class Help:
@@ -63,6 +64,7 @@ class Frame(Help):
     self.difficulties = ["EASY", "MEDIUM", "HARD", "HARDER", "INSANE", "EXTREME"]
     self.user_data = Data("DataBase/users")
     self.data = Data("DataBase")
+    self.info = Data('')
 
   def introduction(self):
     print("Please Login.")
@@ -76,7 +78,7 @@ class Frame(Help):
       """
     )
 
-  def check_iq(self):
+  def checkIq(self):
     print("Please Login.")
     iq = self.login()["IQ"]
     print(
@@ -86,7 +88,7 @@ class Frame(Help):
       """
     ) if (iq >= 100) else f"\nYour IQ Level is: {iq}."
 
-  def change_difficulty(self):
+  def changeDifficulty(self):
     os.system("clear")
     confirmation = input("Are you sure you want to change your difficulty? (y/n): ")
     if (confirmation == "y"):
@@ -101,7 +103,7 @@ class Frame(Help):
 
       print("Your new difficulty has been saved!")
 
-  def sign_up(self):
+  def signUp(self):
     os.system("clear")
     username = input("Please enter your username: ")
     email = input("Please enter your email: ")
@@ -117,7 +119,7 @@ class Frame(Help):
 
     self.user_data.setDataJson(f"user[{username}].json", user)
 
-  def delete_account(self):
+  def deleteAccount(self):
     os.system("clear")
     print("Please login.")
 
@@ -131,8 +133,14 @@ class Frame(Help):
 
   def clear(self):
     print("Clearing Screen.")
-    time.sleep(2)
+    time.sleep(1)
     os.system("clear")
+
+  def gameInfo(self):
+    print("Getting Game Data...")
+    os.system("clear")
+    data = self.info.getFileData("readme.md")
+    print(display(Markdown(data)))
 
   def start(self):
     information = self.login()
