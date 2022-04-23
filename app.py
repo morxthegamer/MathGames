@@ -1,23 +1,21 @@
-from gui import GUI
-import sys
+from frame import Frame
+import sys, os
 
 class App:
   def __init__(self):
-    self.app = GUI()
+    self.app = Frame()
 
   def start(self):
+    os.system("clear")
     print("Welcome to The Official Math Games Terminal App!")
-    if (sys.argv):
-      for arg in sys.argv:
-        self.app.start(arg)
-
-    if sys.argv[0] == "main.py" and len(sys.argv) == 1:
-      while True:
-        try:
-          execution = input("What would you like to do?\n> ")
-          if (execution == "login" or execution == "request" or execution == "setup" or execution == "save_game_iq" or execution == "start"):
+    unsafe_methods = ["login", "request", "setup", "save_game_iq"]
+    while True:
+      try:
+        execution = input("What would you like to do?\n> ")
+        for method in unsafe_methods:
+          if (execution == method):
             print("Invaild option.")
             continue
-          exec(f"self.app.{execution}()")
-        except Exception as e:
-          print("Unable to execute request.")
+        exec(f"self.app.{execution}()")
+      except Exception as e:
+        print("Unable to execute request.\n")

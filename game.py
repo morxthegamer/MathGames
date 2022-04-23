@@ -7,7 +7,7 @@ class MathGames:
     self.wrongMessage1 = "You are incorrect. It's less than that. The answer is...{}"
     self.wrongMessage2 = "You are incorrect. It's more than that. The answer is...{}"
     self.correctMessage = "You are correct! The answer is...{}"
-    self.game_message = "Math Games | Operator: {} | IQ Earned: {} | Range: {}-{} | Mode: {}"
+    self.message = "Math Games | Operator: {} | IQ Earned: {} | Range: {}-{} | Mode: {}"
 
   def give_iq(self, op):
     if (op == '+'):
@@ -57,11 +57,10 @@ class MathGames:
   def play(self, operator, sr, er, difficulty):
     self.check_difficulty(difficulty, sr, er)
     while True:
-      print(self.game_message.format(operator, self.iq, sr, er, difficulty))
-      num1 = random.randint(sr, er)
-      num2 = random.randint(sr, er)
+      print(self.message.format(operator, self.iq, sr, er, difficulty))
+      num1, num2 = random.randint(sr, er), random.randint(sr, er)
       result = eval(f"\nnum1 {operator} num2")
-
+      
       play = int(input(f"\n{num1} {operator} {num2} = "))
 
       if play == result:
