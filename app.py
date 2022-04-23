@@ -7,7 +7,9 @@ class App:
     self.unsafe_methods = ["login", "request", "setup", "save_game_iq"]
     self.methods = ["introduction", "check_iq", "change_difficulty", "sign_up", "delete_account", "start"]
 
-  def getMethods(self):
+  def startup(self):
+    print("What would you like to do?\n")
+    print("Avaliable methods:")
     for index, method in enumerate(self.methods):
       print(f"{index}. {method}")
 
@@ -16,7 +18,7 @@ class App:
     print("Welcome to The Official Math Games Terminal App!")
     while True:
       try:
-        execution = input(f"What would you like to do?\n{self.getMethods()}\n>")
+        execution = input(f"{self.startup()}")
         if (execution == "."): exit(0)
         for method in self.unsafe_methods:
           if (execution == method):
