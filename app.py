@@ -12,11 +12,12 @@ class App:
       print(f"{index}. {method}")
 
   def start(self):
-    os.system("clear")
+    os.system("cls")
     print("Welcome to The Official Math Games Terminal App!")
     while True:
       try:
         execution = input(f"What would you like to do?\n{self.getMethods()}\n>")
+        if (execution == "."): exit(0)
         for method in self.unsafe_methods:
           if (execution == method):
             print("Invaild option.")

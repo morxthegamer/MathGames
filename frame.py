@@ -7,14 +7,14 @@ class Help:
     pass
 
   def request(self):
-    os.system("clear")
+    os.system("cls")
     operator = input("Time to play!\nChoose an operator:\n> ")
     first, last = input("Choose a range: ").split(", ")
     first, last = int(first), int(last)
     return operator, first, last
 
   def setup(self):
-    os.system("clear")
+    os.system("cls")
     while (True):
       difficulty = input(f"Please select a difficulty:\n{self.difficulties}\n> ")
       if (difficulty not in self.difficulties):
@@ -27,7 +27,7 @@ class Help:
     return difficulty, age, estimated_iq
 
   def login(self):
-    os.system("clear")
+    os.system("cls")
     username = input("Please enter your username: ")
     password = input("Please enter you password: ")
 
@@ -83,7 +83,7 @@ class Frame(Help):
     ) if (iq) >= 100 else f"\nYour IQ Level is: {iq}."
 
   def change_difficulty(self):
-    os.system("clear")
+    os.system("cls")
     confirmation = input("Are you sure you want to change your difficulty? (y/n): ")
     if (confirmation == "y"):
       print("Please Login.")
@@ -95,7 +95,7 @@ class Frame(Help):
       print("Your new difficulty has been saved!")
 
   def sign_up(self):
-    os.system("clear")
+    os.system("cls")
     username = input("Please enter your username: ")
     email = input("Please enter your email: ")
     password = input("Please enter your password: ")
@@ -110,7 +110,7 @@ class Frame(Help):
     self.user_data.setDataJson(f"user[{username}].json", user)
 
   def delete_account(self):
-    os.system("clear")
+    os.system("cls")
     print("Please login.")
     info = self.login()
     confirmation = input("Are you sure you want to delete your account? (y/n): ")
@@ -122,6 +122,6 @@ class Frame(Help):
   def start(self):
     information = self.login()
     op, start, end = self.request()
-    os.system("clear")
+    os.system("cls")
     self.game.play(op, start, end, information["Difficulty"])
     self.save_game_iq(information["Username"])
