@@ -8,7 +8,7 @@ Python 3.8 or higher. Check requirements file for the required dependencies.
 ## How to Play:
 
 #### 1. Clone the repository:
-```git clone https://github.com/morxthegamer/Math-Games```
+```git clone https://github.com/morxthegamer/MathGames.git```
 
 #### 2. Switch into Game's Directory:
 `cd MathGames`

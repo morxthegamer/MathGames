@@ -24,3 +24,7 @@ class Data:
   def getFileData(self, file):
     with open(file, "r") as l:
       return l.read()
+
+  def setFileData(self, file, data):
+    with open(file, "w") as k:
+      k.write(data)
