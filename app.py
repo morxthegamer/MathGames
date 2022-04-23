@@ -24,7 +24,7 @@ class App:
     print("Welcome to The Official Math Games Terminal App!")
     while True:
       try:
-        execution = input(f"{self.startup()}")
+        execution = input(f"{self.startup()}\n> ")
         if (execution == "."): exit(0)
         if (self.unsafe(execution)):
           continue
