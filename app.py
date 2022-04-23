@@ -5,13 +5,14 @@ class App:
   def __init__(self):
     self.app = Frame()
     self.unsafe_methods = ["login", "request", "setup", "save_game_iq"]
-    self.methods = ["introduction", "check_iq", "change_difficulty", "sign_up", "delete_account", "start"]
+    self.methods = ["introduction", "check_iq", "change_difficulty", "sign_up", "delete_account", "clear", "start"]
 
   def startup(self):
     print("What would you like to do?\n")
     print("Avaliable methods:")
     for index, method in enumerate(self.methods):
       print(f"{index}. {method}")
+    return ""
 
   def unsafe(self, item):
     for method in self.unsafe_methods:
@@ -26,8 +27,7 @@ class App:
       try:
         execution = input(f"{self.startup()}\n> ")
         if (execution == "."): exit(0)
-        if (self.unsafe(execution)):
-          continue
+        if (self.unsafe(execution)): continue
         exec(f"self.app.{execution}()")
       except Exception as e:
         print("Unable to execute request.\n")
