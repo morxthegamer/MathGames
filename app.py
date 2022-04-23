@@ -20,7 +20,7 @@ class App:
         return True
 
   def start(self):
-    os.system("cls")
+    os.system("clear")
     print("Welcome to The Official Math Games Terminal App!")
     while True:
       try:
