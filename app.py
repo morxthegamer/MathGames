@@ -4,8 +4,17 @@ import sys, os
 class App:
   def __init__(self):
     self.app = Frame()
-    self.unsafe_methods = ["login", "request", "setup", "save_game_iq"]
-    self.methods = ["introduction", "checkIq", "changeDifficulty", "signUp", "deleteAccount", "gameInfo", "clear", "start"]
+    self.unsafe_methods = ["login", "save_game_iq"]
+    self.methods = [
+      "introduction - Shows your stats.",
+      "checkIq - Displays your current IQ Level.",
+      "changeDifficulty - Change the difficulty of the game.",
+      "signUp - Create a new game account.",
+      "deleteAccount - Delete your account.", 
+      "gameInfo - Shows info on the game.",
+      "clear - Clears the screen.",
+      "start - Starts the game.",
+      "\'.\' - Exits the game."]
 
   def startup(self):
     print("What would you like to do?\n")

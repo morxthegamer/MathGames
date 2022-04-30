@@ -1,33 +1,11 @@
-from game import MathGames
+from game import Game
 from data import Data
-from IPython.display import display, Markdown
+from PIL import Image
 import random, json, os, time
 
 class Help:
   def __init__(self):
     pass
-
-  def request(self):
-    os.system("clear")
-    operator = input("Time to play!\nChoose an operator:\n> ")
-    first, last = input("Choose a range: ").split(", ")
-    first, last = int(first), int(last)
-    return operator, first, last
-
-  def setup(self):
-    os.system("clear")
-    while (True):
-      difficulty = input(f"Please select a difficulty:\n{self.difficulties}\n> ")
-
-      if (difficulty not in self.difficulties):
-        print("Invalid Choice.")
-        continue
-
-      age = input("Please enter your age: ")
-      estimated_iq = input("How much IQ you think you got?\n> ")
-      break
-
-    return difficulty, age, estimated_iq
 
   def login(self):
     os.system("clear")
@@ -60,7 +38,7 @@ class Help:
 
 class Frame(Help):
   def __init__(self):
-    self.game = MathGames()
+    self.game = Game()
     self.difficulties = ["EASY", "MEDIUM", "HARD", "HARDER", "INSANE", "EXTREME"]
     self.user_data = Data("DataBase/users")
     self.data = Data("DataBase")
@@ -115,8 +93,20 @@ class Frame(Help):
         print("This username is already taken. Please try again.")
 
     user = {"Username": username, "Email": email, "Password": password, "IQ": 0}
-    user["Difficulty"], user["Age"], user["Estimated-IQ"] = self.setup()
 
+    while (True):
+      difficulty = input(f"Please select a difficulty:\n{self.difficulties}\n> ")
+
+      if (difficulty not in self.difficulties):
+        print("Invalid Choice.")
+        continue
+
+      break
+
+    age = input("Please enter your age: ")
+    estimated_iq = input("How much IQ you think you got?\n> ")
+
+    user["Difficulty"], user["Age"], user["Estimated-IQ"] = difficulty, age, estimated_iq
     self.user_data.setDataJson(f"user[{username}].json", user)
 
   def deleteAccount(self):
@@ -139,12 +129,12 @@ class Frame(Help):
   def gameInfo(self):
     print("Getting Game Data...")
     os.system("clear")
-    data = self.info.getFileData("readme.md")
-    print(display(Markdown(data)))
+    img = Image.open(r"information.png")
+    img.show()
 
   def start(self):
     information = self.login()
-    op, start, end = self.request()
+    op, start, end = self.game.request()
 
     os.system("clear")
     self.game.play(op, start, end, information["Difficulty"])

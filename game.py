@@ -1,13 +1,20 @@
 import random, time, os
 from termcolor import colored
 
-class MathGames:
+class Game:
   def __init__(self):
     self.iq = 0
     self.wrongMessage1 = "You are incorrect. It's less than that. The answer is...{}"
     self.wrongMessage2 = "You are incorrect. It's more than that. The answer is...{}"
     self.correctMessage = "You are correct! The answer is...{}"
     self.message = "Math Games | Operator: {} | IQ Earned: {} | Range: {}-{} | Mode: {}"
+    
+  def request(self):
+    os.system("clear")
+    operator = input("Time to play!\nChoose an operator:\n> ")
+    first, last = input("Choose a range: ").split(", ")
+    first, last = int(first), int(last)
+    return operator, first, last
 
   def give_iq(self, op, difficulty):
     if (op == '+'):
@@ -98,36 +105,40 @@ class MathGames:
     if (difficulty == "EASY"):
       if (sr > 10 or er > 20):
           print("Cannot go above 1 to 20 in EASY mode.")
-          exit(1)
+          return True
 
     if (difficulty == "MEDIUM"):
       if (sr < 10 or sr > 40 and er < 20 or er > 60):
           print("Cannot go below 10 to 60 in MEDIUM mode.")
-          exit(1)
+          return True
 
     if (difficulty == "HARD"):
       if (sr < 40 or sr > 80 and er < 60 or er > 140):
           print("Cannot go below 40 to 140 in HARD mode.")
-          exit(1)
+          return True
 
     if (difficulty == "HARDER"):
       if (sr < 80 or sr > 160 and er < 140 or er > 260):
           print("Cannot go below 80 to 260 in HARDER mode.")
-          exit(1)
+          return True
 
     if (difficulty == "INSANE"):
       if (sr < 160 or sr > 240 and er < 260 or er > 320):
           print("Cannot go below 160 to 320 in HARDER mode.")
-          exit(1)
+          return True
 
     if (difficulty == "EXTREME"):
       if (sr < 400 or er < 500):
           print("Cannot go below 400 to 500 in EXTREME mode.")
-          exit(1)
+          return True
+
+    return False
 
   def play(self, operator, sr, er, difficulty):
-    self.check_difficulty(difficulty, sr, er)
     while True:
+      if (self.check_difficulty(difficulty, sr, er)):
+        break
+  
       print(self.message.format(operator, self.iq, sr, er, difficulty))
       num1, num2 = random.randint(sr, er), random.randint(sr, er)
       result = eval(f"\nnum1 {operator} num2")
