@@ -1,5 +1,4 @@
 import random, time, os
-from termcolor import colored
 
 class Game:
   def __init__(self):
